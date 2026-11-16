@@ -1,0 +1,229 @@
+/* Premium landing page*/
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.asteriskField {
+  display: none;
+}
+.width-small {
+  width: 200px;
+}
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Segoe UI", Arial, sans-serif;
+  color: #122033;
+  overflow-x: hidden;
+  background: #f3f7ff;
+}
+
+/* Header + Nav */
+header {
+  background: linear-gradient(135deg, #081426, #163a69 55%, #1d4ed8);
+  color: #fff;
+  padding: 1.5rem clamp(1rem, 3vw, 2rem);
+  box-shadow: 0 12px 28px rgba(8, 20, 38, 0.18);
+}
+
+header a {
+  color: #F2F5F7;
+  text-decoration: none;
+}
+
+header h1 {
+  margin: 0;
+  font-size: clamp(2rem, 4vw, 2.9rem);
+  letter-spacing: 0.04em;
+  font-weight: 800;
+}
+
+nav {
+  background: rgba(255, 255, 255, 0.78);
+  border-bottom: 1px solid #dfe8f4;
+  backdrop-filter: blur(8px);
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.6rem 1.4rem;
+  margin: 0;
+  padding: 1rem 1.5rem;
+}
+
+nav a {
+  color: #122033;
+  text-decoration: none;
+  font-weight: 700;
+  padding: 0.6rem 1rem;
+  border-radius: 999px;
+  transition: 0.2s ease;
+}
+
+nav a:hover,
+nav a:focus-visible {
+  background: #eaf1ff;
+  color: #133ab0;
+}
+
+/* Main container */
+main {
+  width: min(100% - 1.5rem, 1100px);
+  margin: 2.5rem auto;
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid #dfe8f4;
+  border-radius: 22px;
+  box-shadow: 0 20px 50px rgba(18, 32, 51, 0.12);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+main h2 {
+  margin: 0 0 1rem;
+  font-size: clamp(2rem, 3vw, 2.8rem);
+}
+
+main h3 {
+  margin: 0 0 1rem;
+  font-size: 1.35rem;
+}
+
+main p {
+  margin: 0 0 1rem;
+  line-height: 1.7;
+  color: #53657b;
+  font-size: 1.04rem;
+}
+
+/* Pay period + overview */
+#pay-period {
+  display: inline-block;
+  margin-bottom: 1.5rem;
+  padding: 0.9rem 1.1rem;
+  border: 1px solid rgba(29, 78, 216, 0.15);
+  border-radius: 14px;
+  background: linear-gradient(180deg, #f7faff, #edf4ff);
+  color: #133ab0;
+  font-weight: 700;
+}
+
+/* Transactions table on the transactions page to display transaction history */
+
+#transactions-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#transactions-table th,
+#transactions-table td {
+    padding: 12px;
+    text-align: left;
+}
+
+#transactions-table th {
+    font-weight: bold;
+}
+
+#transactions-table tbody tr {
+    border-bottom: 1px solid #ddd;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.45rem;
+  font-weight: 700;
+  color: #122033;
+}
+
+input {
+  width: 100%;
+  padding: 0.9rem 1rem;
+  border: 1px solid #9ba3ad;
+  border-radius: 12px;
+  font-size: 1rem;
+  color: #0e1724;
+}
+
+input:focus{
+  border-color: #1d4ed8;
+  box-shadow: 0 0 0 4px rgba(29, 78, 216, 0.12);
+}
+input[type="radio"][name="email"] {
+    display: none;
+}
+
+/* Buttons */
+button, .button {
+  padding: 0.9rem 1.2rem;
+  border: solid 1px #1d4ed8;
+  border-radius: 12px;
+  background: #133ab0;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 700;
+  box-shadow: 0 12px 20px rgba(29, 78, 216, 0.18);
+}
+
+button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 16px 24px rgba(29, 78, 216, 0.22);
+}
+
+/* Footer */
+footer {
+  padding: 1.5rem 1rem 2.25rem;
+  text-align: center;
+  color: #53657b;
+  font-size: 0.95rem;
+}
+/* Styles to add images to the Social account login in buttons */
+.github {
+  display: inline-block;
+  content: '';
+  width: 50px;
+  height: 50px;
+  background-image: url("../images/github.png");
+  background-size: contain;
+}
+.google {
+  display: inline-block;
+  content: '';
+  width: 50px;
+  height: 50px;
+  background-image: url("../images/google.png");
+  background-size: contain;
+}
+/* Responsive design for smaller screens */
+
+@media (max-width: 900px) {
+  main {
+    width: min(100% - 1rem, 960px);
+  }
+}
+
+@media (max-width: 720px) {
+  nav ul {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  header {
+    padding: 1.2rem 1rem;
+  }
+
+  main {
+    padding: 1.2rem 1rem;
+  }
+}

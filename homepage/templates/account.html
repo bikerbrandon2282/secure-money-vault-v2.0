@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section aria-labelledby="account-title">
+	<h2 id="account-title">Account settings</h2>
+	<p>Manage your sign-in details and account.</p>
+
+	<section aria-labelledby="signout-title">
+		<h3 id="signout-title">Sign out</h3>
+		<form method="post" class= "mb-3" action="{% url 'account_logout' %}">
+			{% csrf_token %}
+			<button type="submit" class="m-3">Log out</button>
+		</form>
+	</section>
+	<hr>
+
+    <section aria-labelledby="currency-title">
+        <h3 id="currency-title">Currency Preference</h3>
+        <form method="post" action="{% url 'change_currency' %}" class="mb-3 mt-3">
+            {% csrf_token %}
+            <label for="currency">Change Currency</label>
+            <select name="currency" id="currency">
+                <option value="1" {% if profile.currency == 1 %}selected{% endif %}>GBP</option>
+                <option value="2" {% if profile.currency == 2 %}selected{% endif %}>USD</option>
+                <option value="3" {% if profile.currency == 3 %}selected{% endif %}>Euro</option>
+                <option value="4" {% if profile.currency == 4 %}selected{% endif %}>Japanese Yen</option>
+                <option value="5" {% if profile.currency == 5 %}selected{% endif %}>Indian Rupee</option>
+            </select>
+            <button type="submit" class="m-3">Save Currency</button>
+        </form>
+    </section>
+	<hr>
+
+	<section aria-labelledby="email-title">
+		<h3 id="email-title">Change email address</h3>
+		<a href="{% url 'account_email' %}" class="btn button">Change Email here</a>
+	</section>
+	<hr>
+
+	<section aria-labelledby="password-title">
+		<h3 id="password-title">Change password</h3>
+		<a href="{% url 'account_change_password' %}" class="btn button">Change Password here</a>
+	</section>
+	<hr>
+
+	<section aria-labelledby="delete-title">
+		<h3 id="delete-title">Delete account</h3>
+		<p>This action is permanent and cannot be undone.</p>
+		<form method="post" action="{% url 'delete_user' %}" class="mb-3" onsubmit="return confirm('Permanently delete your account? This cannot be undone.');">
+			{% csrf_token %}
+			<label for="delete_password">Confirm your password</label>
+			<input type="password" name="password" id="delete_password" autocomplete="current-password" required>
+			<button type="submit" class="m-3">Delete my account</button>
+		</form>
+	</section>
+</section>
+{% endblock %}

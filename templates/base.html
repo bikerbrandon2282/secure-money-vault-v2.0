@@ -1,0 +1,103 @@
+{% load static %}
+
+{% url 'home' as home_url %}
+{% url 'account_login' as login_url %}
+{% url 'account_signup' as signup_url %}
+{% url 'account_logout' as logout_url %}
+{% url 'budget_overview' as budget_overview_url %}
+{% url 'transactions' as transactions_url %}
+{% url 'reports' as reports_url %}
+{% url 'account' as account_url %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- This is  the Landing Page before anyone signs in-->
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Secure Money Vault - Manage your finances securely.">
+        <meta name="keywords" content="finance, budget, transactions, reports, account management">
+        <title>Secure Money Vault</title>
+        <!-- Link to Font Awesome for Icons -->
+        <script src="https://kit.fontawesome.com/37e67f20d7.js" crossorigin="anonymous"></script>
+        <!-- Favicons -->
+        <link rel="icon" type="image/png" href="/static/images/favicon-96x96.png" sizes="96x96" />
+        <link rel="icon" type="image/svg+xml" href="/static/images/favicon.svg" />
+        <link rel="shortcut icon" href="/static/images/favicon.ico" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/static/images/apple-touch-icon.png" />
+        <meta name="apple-mobile-web-app-title" content="SMVault" />
+        <link rel="manifest" href="/static/images/site.webmanifest" />
+        <!-- CSS and Bootstrap links -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" 
+        rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" 
+        crossorigin="anonymous">
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    </head>
+    <body>
+        <header>
+            <a href="{% url 'home' %}">
+                <h1>Secure Money Vault</h1>
+            </a>
+        </header>
+        {% if user.is_authenticated %}
+            <nav>
+                <ul>
+                    <!-- A few links have the hidden attribute as this is a page not implemented yet however will be in future-->
+                    <li hidden><a href="{% url 'budget_overview' %}">Budget Overview</a></li>
+                    <li><a href="{% url 'transactions' %}">Transactions</a></li>
+                    <li hidden><a href="{% url 'reports' %}">Reports</a></li>
+                    <li><a href="{% url 'account' %}">Account</a></li>
+                    <li><a href="{% url 'account_logout' %}">Logout</a></li>
+                </ul>
+            </nav>
+        {% else %}
+            <nav>
+                <ul>
+                    <li><a href="{% url 'account_login' %}">Login</a></li>
+                    <li><a href="{% url 'account_signup' %}">Sign Up</a></li>
+                </ul>
+            </nav>
+        {% endif %}
+        {% if messages %}
+            <div>
+                <strong>Messages:</strong>
+                <ul>
+                    {% for message in messages %}<li>{{ message }}</li>{% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+        <main>
+            {%block content %}
+            <h2>Secure Money Vault</h2> <!-- Landing Page Content -->
+            <p>
+                Welcome to the Secure Money Vault, 
+                your trusted platform for managing your finances securely. 
+                Our application provides a comprehensive overview of your budget, 
+                tracks your transactions, generates detailed reports, 
+                and allows you to manage your account with ease.
+            </p>
+            <div>
+                <p id="pay-period"></p>
+            </div>
+
+            <br>
+            <label for="calc-input" id="pay-label">Enter Weekly Pay Amount:</label>
+            <p id="calc-description"> This calculator works on a weekly paycheck, if you are paid monthly, please divide your amount by 4.33.</p>
+            <input type="text" id="calc-input" placeholder="Enter your weekly pay amount">
+            <button id="calculate-btn">Submit</button>
+            {% endblock %}
+        </main>
+        <footer>
+            <p>&copy; 2026 Secure Money Vault. All rights reserved.</p>
+            <p>Join us on <a href="https://discord.gg/Jcfewtjy2n">Discord <i class="fa-brands fa-discord"></i></a></p>
+        </footer>
+        <script src="{% static 'js/script.js' %}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" 
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" 
+        crossorigin="anonymous"></script>
+    </body>
+
+</html>

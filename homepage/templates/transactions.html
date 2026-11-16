@@ -1,0 +1,86 @@
+	{% extends "base.html" %}
+	{% load crispy_forms_tags %}
+
+	{% block content %}
+	
+		<h2>Transaction Overview</h2>
+		<section id="transaction-overview" aria-label="Transaction overview">
+			<p>Total income: <strong id="total-income">{{currency_symbol}}{{total_income}}</strong></p>
+		<p>Total expenses: <strong id="total-expenses">{{currency_symbol}}{{total_expenses}}</strong></p>
+			<p>Balance: <strong id="transaction-balance">{{currency_symbol}}{{balance}}</strong></p>
+			<p>Transactions: <strong id="transaction-count">{{transaction_count}}</strong></p>
+		</section>
+
+		<section id="transaction-form-section">
+			<h3>Add or Edit Transaction</h3>
+			<form id="transaction-form" method="post">
+				{% csrf_token %}
+				<input type="hidden" id="transaction-id" name="transaction_id">
+				{{transaction_form | crispy }}
+				<button type="submit" id="save-transaction-btn">Add Transaction</button>
+			</form>
+		</section>
+
+		<section id="transactions-list-section">
+			<h3>Transactions</h3>
+			<table id="transactions-table">
+				<thead>
+					<tr>
+						<th scope="col">ID</th>
+						<th scope="col">Date</th>
+						<th scope="col">Description</th>
+						<th scope="col">Type</th>
+						<th scope="col">Category</th>
+						<th scope="col">Amount</th>
+						<th scope="col">Actions</th>
+					</tr>
+				</thead>
+				<tbody id="transactions-list">
+					{% for transaction in transactions %}
+						<tr data-id="{{ transaction.id }}" data-date="{{ transaction.date|date:'Y-m-d\\TH:i' }}" 
+						data-description="{{ transaction.description }}" data-type="{{ transaction.type }}" 
+						data-category="{{ transaction.category }}" data-amount="{{ transaction.amount }}">
+							<td>{{ transaction.transaction_id }}</td>
+							<td>{{ transaction.date }}</td>
+							<td>{{ transaction.description }}</td>
+							<td>{{ transaction.get_type_display }}</td>
+							<td>{{ transaction.get_category_display }}</td>
+							<td>{{currency_symbol}}{{ transaction.amount|floatformat:2 }}</td>
+							<td>
+								<button type="button" class="btn btn-primary edit-btn" data-id="{{ transaction.id }}">Edit</button>
+								<button type="button" class="btn btn-danger delete-btn" data-id="{{ transaction.id }}">Delete</button>
+							</td>
+						</tr>
+					{% endfor %}
+					{% if not transactions %}
+						<tr id="no-transactions-row">
+							<td colspan="5">No transactions added yet.</td>
+						</tr>
+					{% endif %}
+				</tbody>
+			</table>
+		</section>
+		<!-- Delete confirmation modal -->
+		<div class="modal fade" id="deleteModal" tabindex="-1">
+		<div class="modal-dialog">
+			<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title"
+				id="deleteModalLabel">Deleting Transaction</h4>
+				<button type="button" class="btn-close"
+				data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				Are you sure you want to delete this transaction
+				This action cannot be undone.
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary"
+				data-bs-dismiss="modal">Close</button>
+				<a id="deleteConfirm" href="#" class="btn
+				btn-danger">Delete</a>
+			</div>
+			</div>
+		</div>
+		</div>
+	{% endblock %}
